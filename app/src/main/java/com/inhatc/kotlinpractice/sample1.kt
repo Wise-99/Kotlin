@@ -159,3 +159,43 @@ fun forAndWhile(){
         index++
     }
 }
+
+// 7. Nullable / NonNull
+
+fun nullCheck(){
+    // 자바 NPE : Null Pointer Exception
+    // 자바는 컴파일 시점이 아닌 런타임 시점에서만 나타남(실행 시켜야만 나타남)
+    // 코틀린은 컴파일 시점에서도 null 관련 오류를 알 수 있음
+
+    var name : String = "yerin"
+
+    // null을 넣고 싶을 때는 타입 뒤에 ? 를 붙임
+    // 그래서 타입 생략을 해서는 안됨
+    var nullName : String? = null
+
+    var nameInUpperCase = name.uppercase()
+
+    var nullNameInUpperCase = nullName?.uppercase() // nullName이 null이 아니면 실행, 아니면 null을 반환
+
+
+    // ?: 엘비스 연산자
+    val lastName : String? = null
+    val fullName = name + " " +(lastName?: "No lastName")
+
+    println(fullName) // yerin No lastName
+
+    // !!
+}
+
+// !!
+fun ignoreNulls(str : String?){
+    val mNotNull : String = str!! // null이 들어올 경우가 없다는 확신?을 나타냄
+    val upper = mNotNull.uppercase() // 변수명 뒤에 ? 를 붙이지 않아도 uppercase 등 메소드 사용 가능
+
+    // let 함수를 이용해서 NonNull일 경우에 특정 구문을 이용하는 방법
+    // let은 자신의 리시버 객체(email)를 람다식 내부로 옮겨 실행하는 구문
+    val email : String? = "yerenkim@gmail.com"
+    email?.let{
+        println("My email is ${email}") // email 대신 it 사용 가능, null 이면 println은 동작하지 않음
+    }
+}
